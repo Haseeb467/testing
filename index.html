@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prompt-to-App Builder</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #050816;
+        --card: rgba(17, 25, 40, 0.85);
+        --accent: #7c5dff;
+        --accent-2: #08d9d6;
+        --text: #f2f2f2;
+        font-family: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont,
+          "Helvetica Neue", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: radial-gradient(circle at top, rgba(124, 93, 255, 0.25), transparent 50%),
+          var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+      }
+
+      header {
+        padding: 4rem 1.5rem 3rem;
+        text-align: center;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      h1 {
+        font-size: clamp(2.4rem, 5vw, 3.7rem);
+        margin-bottom: 1rem;
+      }
+
+      p.lead {
+        font-size: 1.15rem;
+        opacity: 0.9;
+      }
+
+      .cta {
+        display: inline-flex;
+        gap: 0.75rem;
+        margin-top: 2rem;
+      }
+
+      .cta button,
+      .cta a {
+        border: none;
+        background: var(--accent);
+        color: white;
+        padding: 0.85rem 1.5rem;
+        border-radius: 999px;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+        text-decoration: none;
+      }
+
+      .cta a.secondary {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      main {
+        padding: 0 1.5rem 4rem;
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+
+      section {
+        background: var(--card);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 18px;
+        padding: 2rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+      }
+
+      section h2 {
+        margin-top: 0;
+        margin-bottom: 0.75rem;
+        font-size: 1.6rem;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1.25rem;
+      }
+
+      .card {
+        padding: 1.25rem;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        min-height: 100%;
+      }
+
+      ul {
+        padding-left: 1.2rem;
+        margin: 0.5rem 0 0;
+      }
+
+      .tagline {
+        text-transform: uppercase;
+        letter-spacing: 0.3rem;
+        color: var(--accent-2);
+        font-size: 0.85rem;
+      }
+
+      footer {
+        text-align: center;
+        padding: 2rem 1rem 3rem;
+        color: rgba(255, 255, 255, 0.55);
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 600px) {
+        .cta {
+          flex-direction: column;
+          width: 100%;
+        }
+
+        .cta button,
+        .cta a {
+          text-align: center;
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <p class="tagline">prompt-to-code saas</p>
+      <h1>Generate full-stack Next.js apps from a single prompt</h1>
+      <p class="lead">
+        Describe your idea once and deliver production-ready code with live preview, embedded IDE,
+        auth, billing, and deployment hooks baked in.
+      </p>
+      <div class="cta">
+        <button>Generate prototype</button>
+        <a href="#architecture" class="secondary">Explore architecture</a>
+      </div>
+    </header>
+
+    <main>
+      <section id="workflow">
+        <h2>User Workflow &amp; Experience</h2>
+        <div class="grid">
+          <div class="card">
+            <h3>Prompt Input UI</h3>
+            <ul>
+              <li>Hero-level input accepting natural language like “mujhe portfolio site chahiye”.</li>
+              <li>Optional structured controls for theme, palette, components.</li>
+              <li>Validate prompts, track rate limits, and persist history per account.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Split Workspace</h3>
+            <ul>
+              <li>Left: live preview iframe streaming Sandpack/Next runtime.</li>
+              <li>Right: Monaco or CodeMirror tabs for frontend, backend, and config files.</li>
+              <li>Diff view, auto-format, and instructions overlay for generated components.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Deploy &amp; Export</h3>
+            <ul>
+              <li>Download ZIP, deploy to Vercel/Netlify, or save to user library.</li>
+              <li>Webhook triggered deploys with Git metadata.</li>
+              <li>Shareable preview links with password protection.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="architecture">
+        <h2>Backend &amp; Generation Engine</h2>
+        <div class="grid">
+          <div class="card">
+            <h3>API Layer</h3>
+            <ul>
+              <li>Next.js API routes or Express service at <code>/api/generate</code>.</li>
+              <li>Validation, auth, rate limiting (Upstash Redis), and observability hooks.</li>
+              <li>Streaming updates for long-running generation jobs.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Template Library</h3>
+            <ul>
+              <li>Opinionated layouts: landing, blog, ecommerce, dashboard.</li>
+              <li>Component metadata for hero, CTA, pricing, testimonials, CRUD tables.</li>
+              <li>TypeScript + Tailwind baseline with accessible variants.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Prompt Parsing</h3>
+            <ul>
+              <li>LLM-powered parser fills template slots (colors, imagery, data models).</li>
+              <li>Generates Prisma schema, API routes, seed scripts, and fixture data.</li>
+              <li>ESLint/Prettier/tsc validation before exposing code to user.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Live Preview Pipeline</h2>
+        <div class="grid">
+          <div class="card">
+            <h3>In-browser preview</h3>
+            <ul>
+              <li>Sandboxed iframe running Sandpack or custom Next mini-runtime.</li>
+              <li>Hot reload connection to editor for instant updates.</li>
+              <li>Secure capability-based messaging to prevent escapes.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>On-demand deploys</h3>
+            <ul>
+              <li>Vercel/Netlify/Cloudflare deploy hooks triggered from generated repo.</li>
+              <li>Temporary git tree pushes for preview builds.</li>
+              <li>Edge/serverless adapters for SSR + API endpoints.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Backend simulation</h3>
+            <ul>
+              <li>Mock data or SQLite bundle for Prisma-based APIs.</li>
+              <li>Secrets vault for third-party integrations.</li>
+              <li>Optional BullMQ queue for heavy compilation tasks.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Embedded Code Editor</h2>
+        <div class="grid">
+          <div class="card">
+            <h3>IDE Experience</h3>
+            <ul>
+              <li>Monaco editor with TS IntelliSense, refactor tools, and diagnostics.</li>
+              <li>File tree exposing pages/, app/, components/, lib/, api/.</li>
+              <li>Command palette for running ESLint, tests, or AI tweaks.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Hot reload bridge</h3>
+            <ul>
+              <li>Editor changes send patches via service worker to preview runtime.</li>
+              <li>Inline errors shown both in editor gutter and preview overlay.</li>
+              <li>Replayable patch history for undo/redo beyond single session.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Auth, Billing &amp; Limits</h2>
+        <div class="grid">
+          <div class="card">
+            <h3>Authentication</h3>
+            <ul>
+              <li>Clerk/Auth0/Supabase Auth with OAuth + passwordless.</li>
+              <li>Org workspaces, role-based permissions, and audit logs.</li>
+              <li>Secure storage of generated assets per workspace.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Billing</h3>
+            <ul>
+              <li>Stripe subscriptions with usage-based add-ons.</li>
+              <li>Credits for generation minutes, preview runtime, deployments.</li>
+              <li>In-app upgrade prompts when quota near limit.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Quota &amp; Safety</h3>
+            <ul>
+              <li>Upstash Redis based rate limiting per user/tier.</li>
+              <li>Content moderation + code sandboxing for untrusted input.</li>
+              <li>Watermark or read-only previews for free tier.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>AI Enhancements</h2>
+        <div class="grid">
+          <div class="card">
+            <h3>Prompt-to-code</h3>
+            <ul>
+              <li>OpenAI/Anthropic models orchestrated via LangChain-style agents.</li>
+              <li>System prompts enforce coding conventions and template usage.</li>
+              <li>Chain-of-thought evaluation before writing to filesystem.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Design-to-code</h3>
+            <ul>
+              <li>Figma URL ingestion plus screenshot upload with vision parsing.</li>
+              <li>Component detection mapped to internal template registry.</li>
+              <li>Generates responsive variants + Tailwind tokens.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Guided tweaks</h3>
+            <ul>
+              <li>Chat-based assistant that applies patches directly to repo.</li>
+              <li>Declarative instructions like “button ka color change karo”.</li>
+              <li>Undoable patch queue with human-in-the-loop approvals.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>DevOps &amp; Observability</h2>
+        <div class="grid">
+          <div class="card">
+            <h3>Repo Structure</h3>
+            <ul>
+              <li>Turbo/PNPM monorepo with apps/web, apps/preview-runner, packages/templates.</li>
+              <li>Shared UI kit, schema package, and codegen utilities.</li>
+              <li>Feature-flagged releases via LaunchDarkly or DB flags.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Observability</h3>
+            <ul>
+              <li>OpenTelemetry traces piped to DataDog/Sentry.</li>
+              <li>Structured logging for generation steps and deployment hooks.</li>
+              <li>Alerting on model failures, build errors, quota abuse.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Security</h3>
+            <ul>
+              <li>Run user code in isolated containers with egress controls.</li>
+              <li>Secrets broker for API keys + short-lived credentials.</li>
+              <li>Nightly dependency scanning and SBOM exports.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>© 2024 Prompt-to-App Builder • Built for multilingual founders</footer>
+  </body>
+</html>
